@@ -1,1 +1,3 @@
 # FinalProject
+
+My name is Iris Shi and my experiment looks at whether anxiety has an impact on working memory. More specifically anxiety will be induced through a high arousing stimuli which will be initiated through imagining being on the edge of a cliff. This stimuli will last until participants can successfuly imagine this depiction and will have the ability to begin experiment whenever they press any key to begin. Furthermore, working memory will be measured through the accuracy and reaction times of answer simple math equations. The math equations will be presented on the screen until participants respond. If participants don't respond they will not be able to progress onto the next question.  
