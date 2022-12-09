@@ -51,7 +51,7 @@ anxietyText.draw()
 win.flip()
 event.waitKeys()
 
-trial_timer = core.Clock()
+rt_clock = core.Clock()
 
 for iblock in range(nBlocks):
     instructText.draw()
@@ -61,7 +61,13 @@ for iblock in range(nBlocks):
     for itrial in range(nTrials):
         prob[block][trial] = prob_sol[np.random.choice(10)]
         corr_resp[block][trial] = prob[block][trial][1]        
-        print(prob[block][trial], corr_resp[block][trial])
+        
+        rt_clock.reset()
+            
+        event.clearEvents(eventType='keyboard')
+         
+        count=-1
+         
  
 
 win.close()
