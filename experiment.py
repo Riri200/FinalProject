@@ -30,8 +30,9 @@ expInfo['date']  = datetime.now()
 filename = (str(expInfo['Subject_Name'])+'_'+(expInfo['Age'])+'_'+(expInfo['Gender'])+ '_Results.csv')
 print(filename)
 
-anxietyText = visual.TextStim(win, text='Before the experiment begins, imagine standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...! Press any key to proceed.')
-instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin')
+anxietyText = visual.TextStim(win, text='Before the experiment begins, I would like you to imagine yourself standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...!')
+instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin block')
+fixation = visual.TextStim(win, text='+', color='black')
 
 nTrials=10
 nBlocks=2
@@ -52,7 +53,6 @@ win.flip()
 event.waitKeys()
 
 rt_clock = core.Clock()
-cd_timer = core.CountdownTimer()
 
 for block in range(nBlocks):
     instrucText.draw()
@@ -63,18 +63,14 @@ for block in range(nBlocks):
         prob[block][trial] = prob_sol[np.random.choice(10)]
         corr_resp[block][trial] = prob[block][trial][1]        
         
+        my_text.text = prob[block][trial][0] #present the problem for that trial
+        my_text.draw()
+        win.flip()
+        
+        event.waitKeys()
+        event.getKeys
+        
         rt_clock.reset()
-        cd_timer.add(3)
-            
-        event.clearEvents(eventType='keyboard')
-         
-        count=-1
-        while cd_timer.getTime() > 0:
-            my_text.text = prob[block][trial][0] #present the problem for that trial
-            my_text.draw()
-            win.flip()
-
-            keys = event.getKeys
             
         if sub_resp[block][trial] == str(corr_resp[block][trial]):
             sub_acc[block][trial] = 1
@@ -84,6 +80,6 @@ for block in range(nBlocks):
             
         print('problem=', prob[block][trial], 'correct response=', 
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
-              'subject accuracy=',sub_acc[block][trial])
+              'subject accuracy=',sub_acc[block][trial],'subject reaction time=',)
 
 win.close()
