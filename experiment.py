@@ -36,6 +36,7 @@ fixation = visual.TextStim(win, text='+', color='black')
 
 nTrials=10
 nBlocks=2
+my_text=visual.TextStim(win)
 sub_resp = [[0]*nTrials]*nBlocks
 
 sub_resp = [[0]*nTrials]*nBlocks
@@ -52,6 +53,7 @@ win.flip()
 event.waitKeys()
 
 rt_clock = core.Clock()
+cd_timer = core.CountdownTimer()
 
 for iblock in range(nBlocks):
     instructText.draw()
@@ -63,11 +65,26 @@ for iblock in range(nBlocks):
         corr_resp[block][trial] = prob[block][trial][1]        
         
         rt_clock.reset()
+        cd_timer.add(3)
             
         event.clearEvents(eventType='keyboard')
          
         count=-1
-         
- 
+        while cd_timer.getTime() > 0:
+            my_text.text = prob[block][trial][0] #present the problem for that trial
+            my_text.draw()
+            win.flip()
+
+            keys = event.getKeys
+            
+        if sub_resp[block][trial] == str(corr_resp[block][trial]):
+        sub_acc[block][trial] = 1
+      
+        elif sub_resp[block][trial] != str(corr_resp[block][trial]):
+            sub_acc[block][trial] = 2
+            
+        print('problem=', prob[block][trial], 'correct response=', 
+              corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
+              'subject accuracy=',sub_acc[block][trial])
 
 win.close()
