@@ -32,7 +32,6 @@ print(filename)
 
 anxietyText = visual.TextStim(win, text='Before the experiment begins, imagine standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...! Press any key to proceed.')
 instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin')
-fixation = visual.TextStim(win, text='+', color='black')
 
 nTrials=10
 nBlocks=2
