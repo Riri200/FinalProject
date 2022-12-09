@@ -31,7 +31,7 @@ filename = (str(expInfo['Subject_Name'])+'_'+(expInfo['Age'])+'_'+(expInfo['Gend
 print(filename)
 
 anxietyText = visual.TextStim(win, text='Before the experiment begins, I would like you to imagine yourself standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...!')
-instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin')
+instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin block') + str(iblock+1)
 fixation = visual.TextStim(win, text='+', color='black')
 
 nTrials=10
@@ -47,12 +47,21 @@ math_equations = ['2x3=','37-29=','3x0=','24/4=','6+1=','3x3=','0x25=','18-13=',
 answers = [6,8,0,6,7,9,0,5,7,5] 
 prob_sol = list(zip(math_equations,answers))
 
+anxietyText.draw()
+win.flip()
+event.waitKeys()
 
+trial_timer = core.Clock()
 
-for block in range(nBlocks):
-    
-    for trial in range(nTrials):
+for iblock in range(nBlocks):
+    instructText.draw()
+    win.flip()
+    event.waitKeys()
+      
+    for itrial in range(nTrials):
         prob[block][trial] = prob_sol[np.random.choice(10)]
         corr_resp[block][trial] = prob[block][trial][1]        
         print(prob[block][trial], corr_resp[block][trial])
  
+
+win.close()
