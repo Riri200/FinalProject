@@ -30,7 +30,7 @@ expInfo['date']  = datetime.now()
 filename = (str(expInfo['Subject_Name'])+'_'+(expInfo['Age'])+'_'+(expInfo['Gender'])+ '_Results.csv')
 print(filename)
 
-anxietyText = visual.TextStim(win, text='Before the experiment begins, I would like you to imagine yourself standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...!')
+anxietyText = visual.TextStim(win, text='Before the experiment begins, I would like you to imagine yourself standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...!. Press any key to proceed.')
 instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin block')
 fixation = visual.TextStim(win, text='+', color='black')
 
@@ -43,6 +43,7 @@ sub_resp = [[0]*nTrials]*nBlocks
 sub_acc = [[0]*nTrials]*nBlocks
 prob = [[0]*nTrials]*nBlocks
 corr_resp = [[0]*nTrials]*nBlocks
+resp_time = [[0]*nTrials]*nBlocks
 
 math_equations = ['2x3=','37-29=','3x0=','24/4=','6+1=','3x3=','0x25=','18-13=','24-17=','35/7='] 
 answers = [6,8,0,6,7,9,0,5,7,5] 
@@ -67,19 +68,22 @@ for block in range(nBlocks):
         my_text.draw()
         win.flip()
         
-        event.waitKeys()
-        event.getKeys
-        
+        keys = event.waitKeys()
+        event.getKeys()
         rt_clock.reset()
             
         if sub_resp[block][trial] == str(corr_resp[block][trial]):
+            sub_resp[block][trial] = keys
+            resp_time[block][trial] = rt_clock.getTime()
             sub_acc[block][trial] = 1
       
         elif sub_resp[block][trial] != str(corr_resp[block][trial]):
+            sub_resp[block][trial] = keys
+            resp_time[block][trial] = rt_clock.getTime()
             sub_acc[block][trial] = 2
             
-        print('problem=', prob[block][trial], 'correct response=', 
+        print('problem:', prob[block][trial], 'correct answer=', 
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
-              'subject accuracy=',sub_acc[block][trial],'subject reaction time=',)
+              'subject accuracy=',sub_acc[block][trial],'subject reaction time=',resp_time[block][trial])
 
 win.close()
