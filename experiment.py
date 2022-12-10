@@ -64,6 +64,7 @@ for block in range(nBlocks):
         corr_resp[block][trial] = prob[block][trial][1]        
         
         rt.reset()
+        count=-1
         
         my_text.text = prob[block][trial][0] #present the problem for that trial
         my_text.draw()
@@ -72,14 +73,19 @@ for block in range(nBlocks):
         keys = event.waitKeys()
         event.getKeys()
         
-            
+        if keys:
+            count=count+1
+                
+            if count == 0:
+                sub_resp[block][trial] = keys[0]
+        
         if sub_resp[block][trial] == str(corr_resp[block][trial]):
             sub_acc[block][trial] = 1
             sub_resp[block][trial] = keys
             
         elif sub_resp[block][trial] != str(corr_resp[block][trial]):
             sub_acc[block][trial] = 2
-            sub_resp[block][trial] = keys
+            sub_resp[block][trial] = keys            
             
         print('problem:', prob[block][trial], 'correct answer=', 
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
