@@ -91,4 +91,13 @@ for block in range(nBlocks):
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
               'subject accuracy=',sub_acc[block][trial],'subject reaction time=',rt.getTime())
 
+df = pd.DataFrame(data={
+ "Problem": prob, 
+ "Answer": corr_resp, 
+ "Subject Response": sub_resp, 
+ "Accuracy": sub_acc, 
+ "Response Time": resp_time
+})
+df.to_csv(os.path.join(path, filename), sep=',', index=False)
+
 win.close()
