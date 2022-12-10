@@ -43,6 +43,8 @@ sub_acc = [[0]*nTrials]*nBlocks
 prob = [[0]*nTrials]*nBlocks
 corr_resp = [[0]*nTrials]*nBlocks
 resp_time = [[0]*nTrials]*nBlocks
+trialNumbers = [[0]*nTrials]*nBlocks
+blockNumbers = [[0]*nTrials]*nBlocks
 
 math_equations = ['2x3=','37-29=','3x0=','24/4=','6+1=','3x3=','0x25=','18-13=','24-17=','35/7='] 
 answers = [6,8,0,6,7,9,0,5,7,5] 
@@ -91,7 +93,7 @@ for block in range(nBlocks):
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
               'subject accuracy=',sub_acc[block][trial],'subject reaction time=',rt.getTime())
 
-df = pd.DataFrame(data={
+df = pd.DataFrame(data={"Block Number": blockNumbers, "Trial Number": trialNumbers,
  "Problem": prob, 
  "Answer": corr_resp, 
  "Subject Response": sub_resp, 
