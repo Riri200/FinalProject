@@ -37,7 +37,6 @@ fixation = visual.TextStim(win, text='+', color='black')
 nTrials=10
 nBlocks=2
 my_text=visual.TextStim(win)
-sub_resp = [[0]*nTrials]*nBlocks
 
 sub_resp = [[0]*nTrials]*nBlocks
 sub_acc = [[0]*nTrials]*nBlocks
@@ -53,7 +52,7 @@ anxietyText.draw()
 win.flip()
 event.waitKeys()
 
-rt_clock = core.Clock()
+rt = core.Clock()
 
 for block in range(nBlocks):
     instrucText.draw()
@@ -64,26 +63,26 @@ for block in range(nBlocks):
         prob[block][trial] = prob_sol[np.random.choice(10)]
         corr_resp[block][trial] = prob[block][trial][1]        
         
+        rt.reset()
+        
         my_text.text = prob[block][trial][0] #present the problem for that trial
         my_text.draw()
         win.flip()
         
         keys = event.waitKeys()
         event.getKeys()
-        rt_clock.reset()
+        
             
         if sub_resp[block][trial] == str(corr_resp[block][trial]):
-            sub_resp[block][trial] = keys
-            resp_time[block][trial] = rt_clock.getTime()
             sub_acc[block][trial] = 1
-      
-        elif sub_resp[block][trial] != str(corr_resp[block][trial]):
             sub_resp[block][trial] = keys
-            resp_time[block][trial] = rt_clock.getTime()
+            
+        elif sub_resp[block][trial] != str(corr_resp[block][trial]):
             sub_acc[block][trial] = 2
+            sub_resp[block][trial] = keys
             
         print('problem:', prob[block][trial], 'correct answer=', 
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
-              'subject accuracy=',sub_acc[block][trial],'subject reaction time=',resp_time[block][trial])
+              'subject accuracy=',sub_acc[block][trial],'subject reaction time=',rt.getTime())
 
 win.close()
