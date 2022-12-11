@@ -1,43 +1,49 @@
 #Introductory Comments:
 
+#importing modules and functions
 import random
 import numpy as np
 import pandas as pd
 import os
-from psychopy import visual, monitors, core, event
-from psychopy import gui
+from psychopy import visual, monitors, core, event, gui
 from datetime import datetime
 
+#path settings. Defining main directory where the experiment files are kept and data are saved
 directory = os.getcwd()
 path = os.path.join(directory, 'IrisExperiment')
 if not os.path.exists(path):
    os.makedirs(path)
 
+#setting up monitor specs
 mon = monitors.Monitor('myMonitor', width=35.56, distance=60)
 mon.setSizePix([1920, 1080])
 
+#setting up the window specs
 win = visual.Window(
  fullscr=False, 
  monitor=mon, 
  size=(600,600), 
  color='grey', 
- units='pix'
-)
-   
+ units='pix')
+
+#Dialogue box to collect participant info and experiment info
 expInfo = {'Subject_Name':'', 'Age':'','Gender':('Male','Female')}
 myDlg = gui.DlgFromDict(dictionary=expInfo,order=['Subject_Name','Age','Gender'])
 expInfo['date']  = datetime.now() 
 filename = (str(expInfo['Subject_Name'])+'_'+(expInfo['Age'])+'_'+(expInfo['Gender'])+ '_Results.csv')
 print(filename)
 
+#setting up instruction text stimulus
 anxietyText = visual.TextStim(win, text='Before the experiment begins, I would like you to imagine yourself standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...!. Press any key to proceed.')
 instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin block')
-fixation = visual.TextStim(win, text='+', color='black')
-
-nTrials=10
-nBlocks=2
 my_text=visual.TextStim(win)
 
+#Setting up blocks, trials, and clocks
+nTrials=10
+nBlocks=2
+rt = core.Clock()
+
+#prefill lists for responses
 sub_resp = [[0]*nTrials]*nBlocks
 sub_acc = [[0]*nTrials]*nBlocks
 prob = [[0]*nTrials]*nBlocks
@@ -46,6 +52,7 @@ resp_time = [[0]*nTrials]*nBlocks
 trialNumbers = [[0]*nTrials]*nBlocks
 blockNumbers = [[0]*nTrials]*nBlocks
 
+#created problems and solutions to show as stimulus
 math_equations = ['2x3=','37-29=','3x0=','24/4=','6+1=','3x3=','0x25=','18-13=','24-17=','35/7='] 
 answers = [6,8,0,6,7,9,0,5,7,5] 
 prob_sol = list(zip(math_equations,answers))
@@ -53,8 +60,6 @@ prob_sol = list(zip(math_equations,answers))
 anxietyText.draw()
 win.flip()
 event.waitKeys()
-
-rt = core.Clock()
 
 for block in range(nBlocks):
     instrucText.draw()
@@ -68,7 +73,7 @@ for block in range(nBlocks):
         rt.reset()
         count=-1
         
-        my_text.text = prob[block][trial][0] #present the problem for that trial
+        my_text.text = prob[block][trial][0] #presenting the problem for that trial
         my_text.draw()
         win.flip()
         
@@ -80,15 +85,17 @@ for block in range(nBlocks):
                 
             if count == 0:
                 sub_resp[block][trial] = keys[0]
-        
+        #to record subject accuracy
+        #for correct responses
         if sub_resp[block][trial] == str(corr_resp[block][trial]):
             sub_acc[block][trial] = 1
             sub_resp[block][trial] = keys
-            
+        #for incorrect responses
         elif sub_resp[block][trial] != str(corr_resp[block][trial]):
             sub_acc[block][trial] = 2
             sub_resp[block][trial] = keys            
             
+        #print results
         print('problem:', prob[block][trial], 'correct answer=', 
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
               'subject accuracy=',sub_acc[block][trial],'subject reaction time=',rt.getTime())
@@ -102,4 +109,5 @@ df = pd.DataFrame(data={"Block Number": blockNumbers, "Trial Number": trialNumbe
 })
 df.to_csv(os.path.join(path, filename), sep=',', index=False)
 
+#close window. End of experiment
 win.close()
