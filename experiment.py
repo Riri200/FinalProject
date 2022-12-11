@@ -102,6 +102,7 @@ for block in range(nBlocks):
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
               'subject accuracy=',sub_acc[block][trial],'subject reaction time=',rt.getTime())
 
+#load the imported data as a variable with the corresponding output from the experiment
 df = pd.DataFrame(data={"Block Number": blockNumbers, "Trial Number": trialNumbers,
  "Problem": prob, 
  "Answer": corr_resp, 
@@ -109,7 +110,7 @@ df = pd.DataFrame(data={"Block Number": blockNumbers, "Trial Number": trialNumbe
  "Accuracy": sub_acc, 
  "Response Time": resp_time
 })
-df.to_csv(os.path.join(path, filename), sep=',', index=False)
+df.to_csv(os.path.join(path, filename), sep=',', index=False)   #data is saved as a csv file in the data folder I had created earlier 
 
 #close window. End of experiment
 win.close()
