@@ -1,6 +1,5 @@
 #Introductory Comments:
 
-#importing modules and functions
 import random
 import numpy as np
 import pandas as pd
@@ -33,9 +32,10 @@ expInfo['date']  = datetime.now()
 filename = (str(expInfo['Subject_Name'])+'_'+(expInfo['Age'])+'_'+(expInfo['Gender'])+ '_Results.csv')   #my filename will be named after what participants put into the dialogue box
 print(filename)
 
-#setting up instruction text stimulus
+#setting up text stimulus
 anxietyText = visual.TextStim(win, text='Before the experiment begins, I would like you to imagine yourself standing on a rooftop that is very high off the ground. The rooftop is very narrow and slippery with no railings. One misstep and you will fall...!. Press any key to proceed.')
 instrucText = visual.TextStim(win, text='You will now solve mathematic equations as fast and as accurate as possible. Press any key to begin block')
+endText = visual.TextStim(win, text='Thank you for participating in my experiment!')
 my_text=visual.TextStim(win)
 
 #Setting up blocks, trials, and clock. There will be 2 blocks of 10 trials each
@@ -57,7 +57,7 @@ math_equations = ['2x3=','37-29=','3x0=','24/4=','6+1=','3x3=','0x25=','18-13=',
 answers = [6,8,0,6,7,9,0,5,7,5] 
 prob_sol = list(zip(math_equations,answers))   #this matches together math equations with the corresponding correct answer
 
-anxietyText.draw()   ##drawing the first set of instructions 
+anxietyText.draw()   #drawing the first set of instructions 
 win.flip()         #showing the first set of instructions 
 event.waitKeys()   #will go onto the experiment once participant presses any key. waiting for keypress
 
@@ -101,6 +101,9 @@ for block in range(nBlocks):
         print('problem:', prob[block][trial], 'correct answer=', 
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
               'subject accuracy=',sub_acc[block][trial],'subject reaction time=',rt.getTime())
+endText.draw()  #drawing end of experiment text
+win.flip()     #showing the end of experiment text
+core.wait(3)    #presenting the end of experiment text for 3 seconds before the window is closed
 
 #load the imported data as a variable with the corresponding output from the experiment
 df = pd.DataFrame(data={"Block Number": blockNumbers, "Trial Number": trialNumbers,
@@ -112,5 +115,5 @@ df = pd.DataFrame(data={"Block Number": blockNumbers, "Trial Number": trialNumbe
 })
 df.to_csv(os.path.join(path, filename), sep=',', index=False)   #data is saved as a csv file in the data folder I had created earlier 
 
-#close window. End of experiment
+#close window
 win.close()
