@@ -1,5 +1,19 @@
 #Introductory Comments:
 
+#Name: Iris Shi
+#Name of the folder: 'IrisExperiment'
+#Name of the file: 'IrisShi_21_Female_Results.csv'
+#What my experiment does and why: This experiment looks at whether anxiety has an impact on working memory. 
+      #If anxiety does have an impact on working memory then an anxiety inducing condition should impact participants ability to solve simple math equations such that it should takes participants longer and/or at a decreased accuracy to answer math equations.
+      #Anxiety will be induced through a high arousing stimuli which will be initiated through imagining standing on a rooftop. 
+      #Working memory will be measured by the accuracy and reaction times of participants answer to the math equations. 
+      #Once the anxiety inducing stimuli (text) is presented, participants will press any key to move on to answer simple mathematic equations as quickly and accurately as possible. 
+      #There will be 2 blocks with 10 trials each. The mathematic equations will be displayed and shuffled randomly from a list. 
+      #Each mathematic equation will be displayed until participant inputs any answer/makes an attempt. Therefore, equations will be displayed for as long as it takes the participant to answer the question.  
+      #Once participants have gone through the 2 blocks, a thank you text will appear for 3 seconds and the window will close.
+      #Participant information and data will be collected and saved to the folder 'IrisExperiment' as a csv file which will be named as the participant's name, age, and gender followed by 'Results.csv'.
+      
+
 import random
 import numpy as np
 import pandas as pd
