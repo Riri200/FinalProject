@@ -14,7 +14,7 @@
       #Once participants have gone through the 2 blocks, a thank you text will appear for 3 seconds and the window will close.
       #Participant information and data will be collected and saved to the folder 'IrisExperiment' as a csv file which will be named as the participant's name, age, and gender followed by 'Results.csv'.
  
- 
+#importing functions and modules 
 import random
 import numpy as np
 import pandas as pd
