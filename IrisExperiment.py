@@ -57,7 +57,7 @@ nTrials=10
 nBlocks=2
 rt = core.Clock()
 
-#prefill lists for responses
+#prefill lists for responses. To collect participant information
 sub_resp = [[0]*nTrials]*nBlocks
 sub_acc = [[0]*nTrials]*nBlocks
 prob = [[0]*nTrials]*nBlocks
@@ -102,7 +102,7 @@ for block in range(nBlocks):
             if count == 0:  #if this is the first time a key is pressed
                 sub_resp[block][trial] = keys[0]  #get the key for the first response
                   
-        #to record subject accuracy
+        #to collect and record subject accuracy
         if sub_resp[block][trial] == str(corr_resp[block][trial]):   #for correct responses the arbitrary number for accurate response is 1
             sub_acc[block][trial] = 1
             sub_resp[block][trial] = keys
@@ -111,7 +111,7 @@ for block in range(nBlocks):
             sub_acc[block][trial] = 2
             sub_resp[block][trial] = keys            
             
-        #print results
+        #print results. This collects participant results and records/shows math equation, correct answer, participant accuracy and their reaction time
         print('problem:', prob[block][trial], 'correct answer=', 
               corr_resp[block][trial], 'subject response=',sub_resp[block][trial], 
               'subject accuracy=',sub_acc[block][trial],'subject reaction time=',rt.getTime())
@@ -119,7 +119,7 @@ endText.draw()  #drawing end of experiment text
 win.flip()     #showing the end of experiment text
 core.wait(3)    #presenting the end of experiment text for 3 seconds before the window is closed
 
-#load the imported data as a variable with the corresponding output from the experiment
+#load the imported data as a variable with the corresponding output from the experiment. This collects participants info and imports info into a csv file. 
 df = pd.DataFrame(data={"Block Number": blockNumbers, "Trial Number": trialNumbers,
  "Problem": prob, 
  "Answer": corr_resp, 
